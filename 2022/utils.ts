@@ -10,6 +10,8 @@ export type AnyDepthNestedArray<T> = Array<T | AnyDepthNestedArray<T>>;
  */
 export function flatten<T>(...toFlatten: AnyDepthNestedArray<T>): T[] {
   // Cast Infinity as integer to get around a typescript bug: https://github.com/microsoft/TypeScript/issues/49280
+  // TODO: Remove this when Typescript fixes this bug.
+
   return toFlatten.flat(Infinity as 1) as T[];
 }
 
