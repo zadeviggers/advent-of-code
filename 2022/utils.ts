@@ -2,6 +2,8 @@ export type AnyDepthNestedArray<T> = Array<T | AnyDepthNestedArray<T>>;
 
 /**
  *
+ * Flattens an array of any depth, with full type safety!
+ *
  * @example
  * ```ts
  * flatten(1, 2, [3, 4, [[[5]]], 6, 7, 8], 9, [10, 11, [12, [13], 14]])
@@ -17,6 +19,8 @@ export function flatten<T>(...toFlatten: AnyDepthNestedArray<T>): T[] {
 
 /**
  *
+ * Sums all the numbers passed as arguments.
+ *
  * @example
  * ```ts
  * sum(1, 2, [3, 4, [[[5]]], 6, 7, 8], 9, [10, 11, [12, [13], 14]])
@@ -25,7 +29,7 @@ export function flatten<T>(...toFlatten: AnyDepthNestedArray<T>): T[] {
  */
 export function sum(...toSum: AnyDepthNestedArray<number>): number {
   let sum = 0;
-  for (const num of flatten<number>(...toSum)) {
+  for (const num of flatten<number>(toSum)) {
     sum += num;
   }
   return sum;
@@ -33,18 +37,25 @@ export function sum(...toSum: AnyDepthNestedArray<number>): number {
 
 /**
  *
+ * Averages all the numbers passed as arguments.
+ *
  * @example
  * ```ts
  * average(1, 2, [3, 4, [[[5]]], 6, 7, 8], 9, [10, 11, [12, [13], 14]])
- * // Returns 21
+ * // Returns 7.5
  * ```
  */
 export function average(...toAverage: AnyDepthNestedArray<number>): number {
-  const total = sum(...toAverage);
-  const avg = total / toAverage.length;
+  const toAverageFlat = flatten(toAverage);
+  const total = sum(toAverageFlat);
+  const avg = total / toAverageFlat.length;
   return avg;
 }
 
+/**
+ *
+ * Splits a string into an array of lines.
+ */
 export function splitLines(input: string): string[] {
   return input.split("\n");
 }
