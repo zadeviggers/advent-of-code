@@ -61,8 +61,11 @@ export async function solution(input: string): Promise<string> {
       }
     }
 
-    if (state === "won") roundScore += 6;
-    else if (state === "draw") roundScore += 3;
+    if (state === "won") {
+      roundScore += 6;
+    } else if (state === "draw") {
+      roundScore += 3;
+    }
 
     console.log(roundScore);
     score += roundScore;
