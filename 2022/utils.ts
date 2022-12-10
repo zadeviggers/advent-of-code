@@ -73,3 +73,22 @@ export function sort(...toSort: AnyDepthNestedArray<number>): number[] {
 export function splitLines(input: string): string[] {
   return input.split("\n");
 }
+
+/**
+ *
+ * E**X**clusive logical **OR** gate.
+ *
+ * @example
+ * ```ts
+ * XOR(true, true)
+ * // Returns false
+ * XOR(true, false)
+ * // Returns true
+ * XOR(false, false)
+ * // Returns false
+ * ```
+ */
+export function XOR(a: boolean, b: boolean): boolean {
+  // From https://www.howtocreate.co.uk/xor.html
+  return a !== b;
+}
