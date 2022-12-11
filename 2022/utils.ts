@@ -69,6 +69,17 @@ export function sort(...toSort: AnyDepthNestedArray<number>): number[] {
 /**
  *
  * Splits a string into an array of lines.
+ *
+ * @example
+ * ```ts
+ * splitLines(`a
+ *
+ * a
+ *
+ *
+ * jfdk
+ * `)
+ * // Returns ["a", "", "a", "", "", "jfdk", ""]
  */
 export function splitLines(input: string): string[] {
   return input.split("\n");
@@ -91,4 +102,30 @@ export function splitLines(input: string): string[] {
 export function XOR(a: boolean, b: boolean): boolean {
   // From https://www.howtocreate.co.uk/xor.html
   return a !== b;
+}
+/**
+ *
+ * @param cap The number to count up to
+ * @param step The amount to increase by each iteration.
+ *
+ * @example
+ * ```ts
+ * const r = range(3)
+ * r.next()
+ * // Returns 0
+ * r.next()
+ * // Returns 1
+ * r.next()
+ * // Returns 2
+ *  * r.next()
+ * // Returns undefined
+ *
+ * for (const i of range(12, 2)) console.log(i)
+ * // Logs 0, 2, 4, 6, 8, 10
+ * ```
+ */
+export function* range(cap: number, step = 1) {
+  for (let i = 0; i < cap; i += step) {
+    yield i;
+  }
 }
