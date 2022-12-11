@@ -2,7 +2,6 @@ import { splitLines } from "../../../utils.ts";
 
 type MonkeyID = number;
 
-// Yes I did try using bigints at first. The reason they're still here is because ti worked with them and I couldn't be bothered to remove.
 type WorryLevel = bigint;
 
 type Test = {
@@ -78,6 +77,8 @@ class Monkey {
 
     // console.log(this.id, item, newWorryLevel);
 
+    // Yes I did try using bigints at first. The reason they're still here is because ti worked with them and I couldn't be bothered to remove.
+    // And no, I don't understand the maths theory behind why this works.
     newWorryLevel = newWorryLevel % lcmOfDivisors;
 
     // We did another inspection!
