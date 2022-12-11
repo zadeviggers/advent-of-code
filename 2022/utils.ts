@@ -110,18 +110,21 @@ export function XOR(a: boolean, b: boolean): boolean {
  *
  * @example
  * ```ts
- * const r = range(3)
- * r.next()
- * // Returns 0
- * r.next()
- * // Returns 1
- * r.next()
- * // Returns 2
- *  * r.next()
- * // Returns undefined
+ * for (const i of range(2)) console.log(i)
+ * // Logs 0, 1
  *
  * for (const i of range(12, 2)) console.log(i)
  * // Logs 0, 2, 4, 6, 8, 10
+ *
+ * const r = range(3)
+ * r.next().value
+ * // Returns 0
+ * r.next().value
+ * // Returns 1
+ * r.next().value
+ * // Returns 2
+ * r.next().value
+ * // Returns undefined
  * ```
  */
 export function* range(cap: number, step = 1) {
