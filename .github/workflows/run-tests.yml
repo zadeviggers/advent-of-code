@@ -5,6 +5,8 @@ jobs:
     name: 2022 utils tests
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
       - name: Setup Deno
         uses: denoland/setup-deno@v1.1.1
         with:
