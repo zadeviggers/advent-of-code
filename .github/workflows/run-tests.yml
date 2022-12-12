@@ -6,5 +6,6 @@ jobs:
    steps:
       - name: Setup Deno
         uses: denoland/setup-deno@v1.1.1
-      - name: Run tests
+      - name: Run 2022 utils tests
+        working-directory: ./2022
         run: deno test utils.test.ts
