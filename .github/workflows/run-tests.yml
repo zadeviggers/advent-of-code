@@ -10,5 +10,5 @@ jobs:
         with:
           deno-version: "^1.28.2"
       - name: Run 2022 utils tests
-        working-directory: ./2022
+        working-directory: "2022"
         run: deno test utils.test.ts
