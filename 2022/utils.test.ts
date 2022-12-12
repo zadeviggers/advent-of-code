@@ -2,6 +2,7 @@ import {
   average,
   flatten,
   range,
+  skippableLoop,
   sort,
   splitLines,
   sum,
@@ -155,4 +156,85 @@ Deno.test({
       });
     });
   },
+});
+
+Deno.test("skippableLoop()", async (t) => {
+  await t.step("With array", async (t) => {
+    await t.step("Without skipping", () => {
+      const items: number[] = [];
+      skippableLoop([0, 1, 2, 3, 4, 5, 6], (item) => {
+        items.push(item);
+      });
+      assertEquals(items, [0, 1, 2, 3, 4, 5, 6]);
+    });
+
+    await t.step("Skipping single time", () => {
+      const items: number[] = [];
+      skippableLoop([0, 1, 2, 3, 4, 5, 6], (item, skip) => {
+        items.push(item);
+        skip();
+      });
+      assertEquals(items, [0, 2, 4, 6]);
+    });
+    await t.step("Skipping multiple times", () => {
+      const items: number[] = [];
+      skippableLoop([0, 1, 2, 3, 4, 5, 6], (item, skip) => {
+        items.push(item);
+        skip(2);
+      });
+      assertEquals(items, [0, 3, 6]);
+    });
+  });
+  await t.step("With range()", async (t) => {
+    await t.step("Simple range()", async (t) => {
+      await t.step("Without skipping", () => {
+        const items: number[] = [];
+        skippableLoop(range(7), (item) => {
+          items.push(item);
+        });
+        assertEquals(items, [0, 1, 2, 3, 4, 5, 6]);
+      });
+      await t.step("Skipping single time", () => {
+        const items: number[] = [];
+        skippableLoop(range(7), (item, skip) => {
+          items.push(item);
+          skip();
+        });
+        assertEquals(items, [0, 2, 4, 6]);
+      });
+      await t.step("Skipping multiple times", () => {
+        const items: number[] = [];
+        skippableLoop(range(7), (item, skip) => {
+          items.push(item);
+          skip(2);
+        });
+        assertEquals(items, [0, 3, 6]);
+      });
+    });
+    await t.step("Complex range()", async (t) => {
+      await t.step("Without skipping", () => {
+        const items: number[] = [];
+        skippableLoop(range(7, 2), (item) => {
+          items.push(item);
+        });
+        assertEquals(items, [0, 2, 4, 6]);
+      });
+      await t.step("Skipping single time", () => {
+        const items: number[] = [];
+        skippableLoop(range(7, 2), (item, skip) => {
+          items.push(item);
+          skip();
+        });
+        assertEquals(items, [0, 4]);
+      });
+      await t.step("Skipping multiple times", () => {
+        const items: number[] = [];
+        skippableLoop(range(7, 2), (item, skip) => {
+          items.push(item);
+          skip(2);
+        });
+        assertEquals(items, [0, 6]);
+      });
+    });
+  });
 });

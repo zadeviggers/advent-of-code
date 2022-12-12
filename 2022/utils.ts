@@ -132,3 +132,40 @@ export function* range(cap: number, step = 1) {
     yield i;
   }
 }
+
+/**
+ *
+ * @param iterator The iterator to loop over.
+ * @param iteration The function to be called for each iteration.
+ *
+ * @example
+ * ```ts
+ *  skippableLoop(range(7), (item, skip) => {
+ *    console.log(item);
+ *    skip();
+ *  });
+ *  // Logs 0, 2, 4, 6
+ *
+ *  skippableLoop([0, 1, 2, 3, 4, 5, 6], (item, skip) => {
+ *    console.log(item);
+ *    skip(2);
+ *  });
+ *  // Logs 0, 3, 6
+ * ```
+ */
+export function skippableLoop<T>(
+  iterator: Iterable<T>,
+  iteration: (item: T, skip: (toSkip?: number) => void) => void | Promise<void>
+): void {
+  let shouldSkip = 0;
+  function skip(toSkip = 1) {
+    shouldSkip += toSkip;
+  }
+  for (const item of iterator) {
+    if (shouldSkip > 0) {
+      shouldSkip--;
+      continue;
+    }
+    iteration(item, skip);
+  }
+}
