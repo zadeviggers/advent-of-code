@@ -1,0 +1,10 @@
+name: run-tests
+on: [push]
+jobs:
+  test-utils:
+   runs-on: ubuntu-latest
+   steps:
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1.1.1
+      - name: Run tests
+        run: deno test utils.test.ts
